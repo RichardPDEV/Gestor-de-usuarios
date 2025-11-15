@@ -2,6 +2,7 @@ package com.ejemplo.usuario.config;
 
 import com.ejemplo.usuario.security.jwt.JwtAuthenticationFilter;
 import com.ejemplo.usuario.security.UserDetailsServiceImpl;
+import com.ejemplo.usuario.security.PermissionEvaluatorImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final PermissionEvaluatorImpl permissionEvaluator;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

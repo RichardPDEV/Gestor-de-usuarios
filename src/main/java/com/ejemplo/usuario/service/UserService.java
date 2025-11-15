@@ -1,5 +1,8 @@
 package com.ejemplo.usuario.service;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import com.ejemplo.usuario.security.UserPrincipal;
 import com.ejemplo.usuario.dto.request.RegisterRequest;
 import com.ejemplo.usuario.dto.response.UserResponse;
 import com.ejemplo.usuario.entity.User;
@@ -75,6 +78,13 @@ public class UserService {
                 .map(role -> role.getName())
                 .collect(Collectors.toSet()));
         return response;
+    }
+
+    public UserResponse getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        User user = findById(userPrincipal.getId());
+        return convertToResponse(user);
     }
 
 }
